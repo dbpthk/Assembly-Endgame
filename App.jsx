@@ -1,23 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { languages } from "./languages";
+import clsx from "clsx";
 
 export default function AssemblyEndgame() {
+  //State values
   const [currentWord, setCurrentWord] = useState("react");
+  const [guessedLetter, setGuessedLetter] = useState([]);
 
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  //Derived values
 
-  const keyboardElements = alphabet
+  const wrongGuessedCount = guessedLetter.filter(
+    (letter) => !currentWord.includes(letter)
+  ).length;
+
+  const isGameWon = currentWord
     .split("")
-    .map((letter) => <button key={letter}>{letter}</button>);
-  console.log(keyboardElements);
+    .every((letter) => guessedLetter.includes(letter));
 
-  const languageElements = languages.map((lang) => {
+  const isGameLost = wrongGuessedCount >= languages.length - 1;
+  const isGameOver = isGameWon || isGameLost;
+
+  //Static values
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  function addGuessedLetter(letter) {
+    setGuessedLetter((prevLetters) =>
+      prevLetters.includes(letter) ? prevLetters : [...prevLetters, letter]
+    );
+  }
+
+  const keyboardElements = alphabet.split("").map((letter) => {
+    const isGuessed = guessedLetter.includes(letter);
+    const isCorrect = isGuessed && currentWord.includes(letter);
+    const isWorng = isGuessed && !currentWord.includes(letter);
+    const className = clsx({
+      correct: isCorrect,
+      wrong: isWorng,
+    });
+    return (
+      <button
+        className={className}
+        key={letter}
+        onClick={() => addGuessedLetter(letter)}
+      >
+        {letter}
+      </button>
+    );
+  });
+
+  const languageElements = languages.map((lang, index) => {
+    const isLanguageLost = index < wrongGuessedCount;
+
     const styles = {
       backgroundColor: lang.backgroundColor,
       color: lang.color,
     };
+    const className = clsx("chip", isLanguageLost && "lost");
+
     return (
-      <span className="chip" key={lang.name} style={styles}>
+      <span className={className} key={lang.name} style={styles}>
         {lang.name}
       </span>
     );
@@ -25,7 +65,9 @@ export default function AssemblyEndgame() {
 
   const letterElements = currentWord
     .split("")
-    .map((letter, index) => <span key={index}>{letter}</span>);
+    .map((letter, index) => (
+      <span key={index}>{guessedLetter.includes(letter) ? letter : ""}</span>
+    ));
 
   return (
     <main>
@@ -37,13 +79,22 @@ export default function AssemblyEndgame() {
         </p>
       </header>
       <section className="game-status">
-        <h2>You Win!</h2>
-        <p>Well done! 🎉</p>
+        {isGameWon ? (
+          <>
+            <h2>You Win!</h2>
+            <p>Well done! 🎉</p>
+          </>
+        ) : (
+          <>
+            <h2>You Loose!</h2>
+            <p>Better learn to play! 🎉</p>
+          </>
+        )}
       </section>
       <section className="language-chips">{languageElements}</section>
       <section className="word">{letterElements}</section>
       <section className="keyboard">{keyboardElements}</section>
-      <button className="newGameButton">New Game</button>
+      {isGameOver && <button className="newGameButton">New Game</button>}
     </main>
   );
 }

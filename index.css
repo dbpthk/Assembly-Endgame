@@ -24,7 +24,7 @@ header h1 {
 
 header p {
   font-size: 0.875rem;
-  max-width: 350px;
+  max-width: 450px;
   color: #8e8e8e;
 }
 section.game-status {
@@ -52,12 +52,27 @@ section.language-chips {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
-  max-width: 350px;
+  max-width: 450px;
 }
 span.chip {
   border-radius: 0.2rem;
   padding: 0.3rem;
+  position: relative;
 }
+span.chip.lost::before {
+  content: "💀";
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 0.85rem;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.826);
+}
+
 section.word {
   margin-top: 2rem;
   text-transform: uppercase;
@@ -90,8 +105,15 @@ section.keyboard > button {
   background-color: #fcba29;
   border: 1px solid #d7d7d7;
   border-radius: 0.1rem;
-
   cursor: pointer;
+}
+
+section.keyboard > button.correct {
+  background-color: #10a95b;
+}
+
+section.keyboard > button.wrong {
+  background-color: #ec5d49;
 }
 .newGameButton {
   margin-top: 1.5rem;
