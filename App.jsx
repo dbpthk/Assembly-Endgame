@@ -14,6 +14,7 @@ export default function AssemblyEndgame() {
   const wrongGuessedCount = guessedLetter.filter(
     (letter) => !currentWord.includes(letter)
   ).length;
+  const remainingGuesses = 8 - wrongGuessedCount;
   const isGameWon = currentWord
     .split("")
     .every((letter) => guessedLetter.includes(letter));
@@ -39,6 +40,7 @@ export default function AssemblyEndgame() {
       correct: isCorrect,
       wrong: isWorng,
     });
+    // console.log(isGuessed);
     return (
       <button
         className={className}
@@ -118,7 +120,6 @@ export default function AssemblyEndgame() {
     setCurrentWord(getRandomWord());
     setGuessedLetter([]);
   }
-  console.log(currentWord);
 
   return (
     <main>
@@ -126,8 +127,11 @@ export default function AssemblyEndgame() {
       <header>
         <h1>Assembly: Endgame</h1>
         <p>
-          Guess the word within 8 attempts to keep the programming world safe
-          from Assembly!
+          Guess the word within{" "}
+          <span style={{ color: "#fcba29", fontWeight: "500" }}>
+            {remainingGuesses}
+          </span>{" "}
+          attempts to keep the programming world safe from Assembly!
         </p>
       </header>
       <section aria-live="polite" role="status" className={gameStatusClass}>
