@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { languages } from "./languages";
 import clsx from "clsx";
 import { getRandomWord, getFarewellText } from "./utils";
+import ReactConfetti from "react-confetti";
 
 export default function AssemblyEndgame() {
   //State values
@@ -117,20 +118,11 @@ export default function AssemblyEndgame() {
     setCurrentWord(getRandomWord());
     setGuessedLetter([]);
   }
-
-  const style = {
-    backgroundColor: "ec5d49",
-    height: "2.2rem",
-    width: "2.2rem",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: " 1.125rem",
-    borderBottom: "1px solid #f9f4da",
-  };
+  console.log(currentWord);
 
   return (
     <main>
+      {isGameWon && <ReactConfetti recycle={false} numberOfPieces={2000} />}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>
