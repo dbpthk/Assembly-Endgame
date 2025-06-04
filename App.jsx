@@ -68,11 +68,17 @@ export default function AssemblyEndgame() {
     );
   });
 
-  const letterElements = currentWord
-    .split("")
-    .map((letter, index) => (
-      <span key={index}>{guessedLetter.includes(letter) ? letter : ""}</span>
-    ));
+  const letterElements = currentWord.split("").map((letter, index) => {
+    const shouldRevealLetter = isGameLost || guessedLetter.includes(letter);
+    const letterClassName = clsx(
+      isGameLost && !guessedLetter.includes(letter) && "missed-letter"
+    );
+    return (
+      <span key={index} className={letterClassName}>
+        {shouldRevealLetter ? letter : ""}
+      </span>
+    );
+  });
 
   const gameStatusClass = clsx("game-status", {
     won: isGameWon,
@@ -106,6 +112,22 @@ export default function AssemblyEndgame() {
       null;
     }
   }
+
+  function resetGame() {
+    setCurrentWord(getRandomWord());
+    setGuessedLetter([]);
+  }
+
+  const style = {
+    backgroundColor: "ec5d49",
+    height: "2.2rem",
+    width: "2.2rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: " 1.125rem",
+    borderBottom: "1px solid #f9f4da",
+  };
 
   return (
     <main>
@@ -142,7 +164,11 @@ export default function AssemblyEndgame() {
             .join(" ")}
         </p>
       </section>
-      {isGameOver && <button className="newGameButton">New Game</button>}
+      {isGameOver && (
+        <button onClick={resetGame} className="newGameButton">
+          New Game
+        </button>
+      )}
     </main>
   );
 }
