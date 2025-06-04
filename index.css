@@ -24,35 +24,50 @@ header h1 {
 
 header p {
   font-size: 0.875rem;
-  max-width: 450px;
+  max-width: 28rem;
   color: #8e8e8e;
 }
 section.game-status {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #10a95b;
+  justify-content: center;
   color: #f9f4da;
+  min-height: 5rem;
   border-radius: 0.3rem;
   margin-block: 2rem;
 }
 
-section.game-status > h2 {
-  font-size: 1.25rem;
-  margin-top: 0.33rem;
+section.game-status.won {
+  background-color: #10a95b;
+}
+section.game-status.lost {
+  background-color: #ba2a2a;
+}
+section.game-status.farewell {
+  background-color: #7a5ea7;
+  border: 1px dashed #323232;
 }
 
-.game-status p {
-  margin-top: 0.33rem;
+section.game-status > h2 {
+  font-size: 1.25rem;
+  margin-bottom: -0.5rem;
+}
+
+section.game-status > p {
   font-size: 1rem;
   color: white;
+}
+section.game-status > p.farewell-message {
+  font-style: italic;
+  font-weight: 400;
 }
 section.language-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
-  max-width: 450px;
+  max-width: 28rem;
 }
 span.chip {
   border-radius: 0.2rem;
@@ -60,14 +75,15 @@ span.chip {
   position: relative;
 }
 span.chip.lost::before {
-  content: "💀";
+  content: "\2620";
+  color: white;
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
-  font-size: 0.85rem;
+  font-size: 1.5rem;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.826);
@@ -96,11 +112,11 @@ section.keyboard {
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 450px;
+  max-width: 28rem;
 }
 section.keyboard > button {
-  height: 2.1rem;
-  width: 2.1rem;
+  height: 2.2rem;
+  width: 2.2rem;
   text-transform: uppercase;
   background-color: #fcba29;
   border: 1px solid #d7d7d7;
@@ -115,6 +131,12 @@ section.keyboard > button.correct {
 section.keyboard > button.wrong {
   background-color: #ec5d49;
 }
+
+section.keyboard > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 .newGameButton {
   margin-top: 1.5rem;
   display: block;
