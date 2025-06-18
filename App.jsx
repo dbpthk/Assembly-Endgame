@@ -6,7 +6,9 @@ import ReactConfetti from "react-confetti";
 
 export default function AssemblyEndgame() {
   //State values
-  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
+  const [currentWordData, setCurrentWordData] = useState(() => getRandomWord());
+  const currentWord = currentWordData.word;
+  const currentHint = currentWordData.hint;
   const [guessedLetter, setGuessedLetter] = useState([]);
 
   //Derived values
@@ -117,7 +119,7 @@ export default function AssemblyEndgame() {
   }
 
   function resetGame() {
-    setCurrentWord(getRandomWord());
+    setCurrentWordData(getRandomWord());
     setGuessedLetter([]);
   }
 
@@ -138,7 +140,13 @@ export default function AssemblyEndgame() {
         {renderGameStatus()}
       </section>
       <section className="language-chips">{languageElements}</section>
+      <section className="hint">
+        <p className="hintText">
+          <span>Hint:</span> {currentHint}
+        </p>
+      </section>
       <section className="word">{letterElements}</section>
+
       <section className="keyboard">{keyboardElements}</section>
 
       {/* Combined visually-hidden aria-live region for status updates */}

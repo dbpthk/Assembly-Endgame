@@ -12,18 +12,27 @@ body {
   display: flex;
   justify-content: center;
 }
+::-moz-selection {
+  background-color: #fcba29;
+  color: #1a1a1a;
+}
+
+::selection {
+  background-color: #fcba29;
+  color: #1a1a1a;
+}
 header {
   text-align: center;
 }
 
 header h1 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #f9f4da;
 }
 
 header p {
-  font-size: 0.875rem;
+  font-size: 1rem;
   max-width: 28rem;
   color: #8e8e8e;
 }
@@ -33,7 +42,7 @@ section.game-status {
   align-items: center;
   justify-content: center;
   color: #f9f4da;
-  min-height: 5rem;
+  min-height: 6rem;
   border-radius: 0.3rem;
   margin-block: 2rem;
 }
@@ -50,7 +59,7 @@ section.game-status.farewell {
 }
 
 section.game-status > h2 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin-bottom: -0.5rem;
 }
 
@@ -89,21 +98,31 @@ span.chip.lost::before {
   background-color: rgba(0, 0, 0, 0.826);
 }
 
+.hintText {
+  font-size: 0.875rem;
+  max-width: 28rem;
+  color: #8e8e8e;
+  text-align: center;
+}
+.hintText span {
+  font-style: italic;
+}
+
 section.word {
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-transform: uppercase;
   display: flex;
   gap: 0.2rem;
   justify-content: center;
 }
 section.word > span {
-  height: 2.2rem;
-  width: 2.2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   background-color: #323232;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   border-bottom: 1px solid #f9f4da;
 }
 
@@ -131,8 +150,8 @@ section.keyboard {
   max-width: 28rem;
 }
 section.keyboard > button {
-  height: 2.2rem;
-  width: 2.2rem;
+  height: 2.5rem;
+  width: 2.5rem;
   text-transform: uppercase;
   background-color: #fcba29;
   border: 1px solid #d7d7d7;
